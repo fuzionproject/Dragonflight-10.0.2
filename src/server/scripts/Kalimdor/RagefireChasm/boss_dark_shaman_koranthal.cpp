@@ -37,7 +37,7 @@ class boss_dark_shaman_koranthal : public CreatureScript
         struct boss_dark_shaman_koranthalAI : public BossAI
         {
             boss_dark_shaman_koranthalAI(Creature* creature) : BossAI(creature, BOSS_DARK_SHAMAN_CORANTHAL) { }
-            boss_dark_shaman_koranthal::boss_dark_shaman_koranthalAI::EnterCombat() { }
+           // boss_dark_shaman_koranthal::boss_dark_shaman_koranthalAI::EnterCombat() { }
 
             void InitializeAI() override
             {

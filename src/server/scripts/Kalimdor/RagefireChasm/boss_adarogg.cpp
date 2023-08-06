@@ -45,11 +45,11 @@ class boss_adarogg : public CreatureScript
 
             uint32 m_InfernoTarget;
 
-            void InitializeAI() override 
+            void InitializeAI() /*override*/ 
             {
                 Reset();
             }
-             void Reset() override
+             void Reset() /*override*/
             {
                 _Reset();
                 events.Reset();
@@ -65,13 +65,14 @@ class boss_adarogg : public CreatureScript
                 BossAI::EnterEvadeMode();
                 instance->SendEncounterUnit(ENCOUNTER_FRAME_DISENGAGE, me);
             }
-        };   
-        enum boss_adarogg::boss_adaroggAI::EnterCombat() { }       
+        }   
+        //enum boss_adarogg::boss_adaroggAI::EnterCombat() { }       
 
             void EnterCombat(Unit* who) /*override*/
             {
                 // @TODO: Set in combat for other protectors
                 EnterCombat();
+                ExitCombat();
 
                 if (instance)
                 {
