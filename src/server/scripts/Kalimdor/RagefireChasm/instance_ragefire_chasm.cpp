@@ -97,7 +97,7 @@ class instance_ragefire_chasm : public InstanceMapScript
                 return saveStream.str();
             }
 
-            void Load(char const* in) override
+            void Load(char const* in) /*override*/
             {
                 if (!in)
                 {

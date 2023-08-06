@@ -78,7 +78,7 @@ class boss_lava_guard_gordoth : public CreatureScript
                 events.ScheduleEvent(EVENT_SLAM, urand(20 * IN_MILLISECONDS, 22 * IN_MILLISECONDS));
             }
 
-            void DamageTaken(Unit* /*attacker*/, uint32& damage) override
+            void DamageTaken(Unit* /*attacker*/, uint32& damage) /*override*/
             {
                 if (HealthBelowPct(30) && !hasEnrage)
                 {
