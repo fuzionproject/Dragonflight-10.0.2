@@ -33,7 +33,7 @@ class instance_ragefire_chasm : public InstanceMapScript
 
         struct instance_ragefire_chasm_InstanceMapScript : public InstanceScript
         {
-            instance_ragefire_chasm_InstanceMapScript(Map* map) : InstanceScript(map) { }
+            instance_ragefire_chasm_InstanceMapScript(map* map) : InstanceScript(map) { }
 
             uint64 AdaroggGUID;
             uint64 CoranthalGUID;
