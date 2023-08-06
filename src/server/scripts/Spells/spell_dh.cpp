@@ -172,6 +172,12 @@ enum DemonHunterSpells
     SPELL_DH_VENGEFUL_RETREAT_TRIGGER              = 198793,
 };
 
+enum DemonHunterSpec
+{
+     if (player->GetPrimarySpecialization() == ChrSpecialization::DemonHunterHavoc);
+     if (player->GetPrimarySpecialization() == ChrSpecialization::DemonHunterVengeance);
+};     
+
 // 197125 - Chaos Strike
 class spell_dh_chaos_strike : public AuraScript
 {

@@ -81,6 +81,13 @@ enum DeathKnightSpells
     SPELL_DK_VOLATILE_SHIELDING_DAMAGE          = 207194
 };
 
+enum DeathKnightSpec
+{
+     if (player->GetPrimarySpecialization() == ChrSpecialization::DeathKnightBlood);
+     if (player->GetPrimarySpecialization() == ChrSpecialization::DeathKnightFrost);
+     if (player->GetPrimarySpecialization() == ChrSpecialization::DeathKnightUnholy);
+};  
+
 enum Misc
 {
     NPC_DK_DANCING_RUNE_WEAPON                  = 27893
