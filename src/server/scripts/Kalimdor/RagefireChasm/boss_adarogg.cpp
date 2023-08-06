@@ -65,7 +65,7 @@ class boss_adarogg : public CreatureScript
                 BossAI::EnterEvadeMode();
                 instance->SendEncounterUnit(ENCOUNTER_FRAME_DISENGAGE, me);
             }
-        }   
+        };   
         //enum boss_adarogg::boss_adaroggAI::EnterCombat() { }       
 
             void EnterCombat(Unit* who) /*override*/
