@@ -49,10 +49,7 @@ class boss_adarogg : public CreatureScript
             {
                 Reset();
             }
-        }   
-        struct boss_adarogg::boss_adaroggAI::_EnterCombat() { }
-        
-            void Reset() override
+             void Reset() override
             {
                 _Reset();
                 events.Reset();
@@ -68,6 +65,10 @@ class boss_adarogg : public CreatureScript
                 BossAI::EnterEvadeMode();
                 instance->SendEncounterUnit(ENCOUNTER_FRAME_DISENGAGE, me);
             }
+        };   
+        struct boss_adarogg::boss_adaroggAI::_EnterCombat() { }
+        
+           
 
             void EnterCombat(Unit* who) /*override*/
             {
