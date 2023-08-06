@@ -86,7 +86,7 @@ class instance_ragefire_chasm : public InstanceMapScript
                 return 0;
             }
 
-            std::string GetSaveData() override
+            std::string GetSaveData() /*override*/
             {
                 OUT_SAVE_INST_DATA;
 
