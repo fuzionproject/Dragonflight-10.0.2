@@ -76,11 +76,11 @@ class boss_slagmaw : public CreatureScript
                     instance->SetBossState(BOSS_SLAGMAW, IN_PROGRESS);
                 }
 
-                events.ScheduleEvent(EVENT_LAVA_SPIT, urand(6 * IN_MILLISECONDS, 9 * IN_MILLISECONDS));
+                events.ScheduleEvent(EVENT_LAVA_SPIT, urand(1));
                 events.ScheduleEvent(EVENT_SUBMERGE, 20 * IN_MILLISECONDS);
             }
 
-            void MovementInform(uint32 type, uint32 pointId) override
+            void MovementInform(uint32 type, uint32 pointId) /*override*/
             {
                 if (type != POINT_MOTION_TYPE)
                     return;

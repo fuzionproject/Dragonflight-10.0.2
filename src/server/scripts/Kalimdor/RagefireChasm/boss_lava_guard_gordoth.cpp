@@ -99,7 +99,7 @@ class boss_lava_guard_gordoth : public CreatureScript
                 }
             }
 
-            void UpdateAI(uint32 diff) override
+            void UpdateAI(uint32 diff) /*override*/
             {
                 if (!UpdateVictim())
                     return;
