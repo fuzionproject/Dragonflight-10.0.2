@@ -62,11 +62,12 @@ class boss_lava_guard_gordoth : public CreatureScript
                 BossAI::EnterEvadeMode();
                 instance->SendEncounterUnit(ENCOUNTER_FRAME_DISENGAGE, me);
             }
-
+        }
+        struct boss_lava_guard_gordoth::boss_boss_lava_guard_gordothAI::_EnterCombat() { }
             void EnterCombat(Unit* who) /*override*/
             {
                 // @TODO: Set in combat for other protectors
-                EnterCombat();
+                _EnterCombat();
 
                 if (instance)
                 {

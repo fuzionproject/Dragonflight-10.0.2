@@ -49,7 +49,9 @@ class boss_adarogg : public CreatureScript
             {
                 Reset();
             }
-
+        }   
+        struct boss_adarogg::boss_adaroggAI::_EnterCombat() { }
+        
             void Reset() override
             {
                 _Reset();
@@ -70,7 +72,7 @@ class boss_adarogg : public CreatureScript
             void EnterCombat(Unit* who) /*override*/
             {
                 // @TODO: Set in combat for other protectors
-                EnterCombat();
+                _EnterCombat();
 
                 if (instance)
                 {
