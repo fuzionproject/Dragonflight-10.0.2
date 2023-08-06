@@ -40,7 +40,7 @@ class instance_ragefire_chasm : public InstanceMapScript
             uint64 SlagmawGUID;
             uint64 GordothGUID;
 
-            void Initialize() override
+            void Initialize() /*override*/
             {
                 SetBossNumber(TOTAL_ENCOUNTERS);
 
