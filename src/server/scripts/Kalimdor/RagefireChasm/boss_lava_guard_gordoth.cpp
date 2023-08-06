@@ -63,11 +63,11 @@ class boss_lava_guard_gordoth : public CreatureScript
                 instance->SendEncounterUnit(ENCOUNTER_FRAME_DISENGAGE, me);
             }
         };
-        struct boss_lava_guard_gordoth::boss_boss_lava_guard_gordothAI::_EnterCombat() { }
+        enum boss_lava_guard_gordoth::boss_boss_lava_guard_gordothAI::EnterCombat() { }
             void EnterCombat(Unit* who) /*override*/
             {
                 // @TODO: Set in combat for other protectors
-                _EnterCombat();
+                EnterCombat();
 
                 if (instance)
                 {

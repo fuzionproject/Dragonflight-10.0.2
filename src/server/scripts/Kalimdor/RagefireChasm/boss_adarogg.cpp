@@ -66,14 +66,12 @@ class boss_adarogg : public CreatureScript
                 instance->SendEncounterUnit(ENCOUNTER_FRAME_DISENGAGE, me);
             }
         };   
-        struct boss_adarogg::boss_adaroggAI::_EnterCombat() { }
-        
-           
+        enum boss_adarogg::boss_adaroggAI::EnterCombat() { }       
 
             void EnterCombat(Unit* who) /*override*/
             {
                 // @TODO: Set in combat for other protectors
-                _EnterCombat();
+                EnterCombat();
 
                 if (instance)
                 {

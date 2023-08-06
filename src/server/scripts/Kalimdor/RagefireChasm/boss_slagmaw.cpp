@@ -63,12 +63,12 @@ class boss_slagmaw : public CreatureScript
                 BossAI::EnterEvadeMode();
                 instance->SendEncounterUnit(ENCOUNTER_FRAME_DISENGAGE, me);
             };
-            struct boss_slagmaw::boss_slagmawAI::_EnterCombat() { }
+            enum boss_slagmaw::boss_slagmawAI::EnterCombat() { }
             
             void EnterCombat(Unit* who) /*override*/
             {
                 // @TODO: Set in combat for other protectors
-                _EnterCombat();
+                EnterCombat();
 
                 if (instance)
                 {

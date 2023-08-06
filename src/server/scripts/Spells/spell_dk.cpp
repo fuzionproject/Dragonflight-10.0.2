@@ -83,9 +83,9 @@ enum DeathKnightSpells
 
 enum DeathKnightSpec
 {
-     if (player->GetPrimarySpecialization() == ChrSpecialization::DeathKnightBlood);
-     if (player->GetPrimarySpecialization() == ChrSpecialization::DeathKnightFrost);
-     if (player->GetPrimarySpecialization() == ChrSpecialization::DeathKnightUnholy);
+      (player->GetPrimarySpecialization() == ChrSpecialization::DeathKnightBlood);
+      (player->GetPrimarySpecialization() == ChrSpecialization::DeathKnightFrost);
+      (player->GetPrimarySpecialization() == ChrSpecialization::DeathKnightUnholy);
 };  
 
 enum Misc

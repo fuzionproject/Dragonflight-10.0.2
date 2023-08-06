@@ -29,9 +29,9 @@ gets instead the deserter debuff.
 class instance_ragefire_chasm : public InstanceMapScript
 {
     public:
-        instance_ragefire_chasm() : InstanceMapScript("instance_ragefire_chasm", 389) { } ;
+        instance_ragefire_chasm() : InstanceMapScript("instance_ragefire_chasm", 389) { } 
 
-        struct instance_ragefire_chasm_InstanceMapScript : public InstanceScript { }
+        
         {
             instance_ragefire_chasm_InstanceMapScript(InstanceMap* map) : InstanceScript(map) 
 

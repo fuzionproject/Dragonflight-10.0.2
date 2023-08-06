@@ -174,8 +174,9 @@ enum DemonHunterSpells
 
 enum DemonHunterSpec
 {
-     if (player->GetPrimarySpecialization() == ChrSpecialization::DemonHunterHavoc);
-     if (player->GetPrimarySpecialization() == ChrSpecialization::DemonHunterVengeance);
+     
+    (player->GetPrimarySpecialization() == ChrSpecialization::DemonHunterHavoc);
+    (player->GetPrimarySpecialization() == ChrSpecialization::DemonHunterVengeance);
 };     
 
 // 197125 - Chaos Strike
