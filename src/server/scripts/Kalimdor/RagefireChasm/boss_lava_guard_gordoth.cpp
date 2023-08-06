@@ -88,7 +88,7 @@ class boss_lava_guard_gordoth : public CreatureScript
                 }
             }
 
-            void JustDied(Unit* /*killer*/) override
+            void JustDied(Unit* /*killer*/) /*override*/
             {
                 _JustDied();
 
@@ -127,12 +127,13 @@ class boss_lava_guard_gordoth : public CreatureScript
 
                 DoMeleeAttackIfReady();
             }
-        };
+        }
 
         CreatureAI* GetAI(Creature* creature) const override
         {
             return new boss_lava_guard_gordothAI(creature);
         }
+    }
 };
 
 void AddSC_boss_lava_guard_gordoth()

@@ -68,7 +68,7 @@ class boss_slagmaw : public CreatureScript
             void EnterCombat(Unit* who) /*override*/
             {
                 // @TODO: Set in combat for other protectors
-                EnterCombat();
+                //EnterCombat();
 
                 if (instance)
                 {
