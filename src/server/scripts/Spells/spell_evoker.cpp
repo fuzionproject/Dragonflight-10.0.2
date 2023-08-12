@@ -32,6 +32,7 @@
 #include "../../../../dep/efsw/src/efsw/String.hpp"
 #include <boost/fusion/sequence/intrinsic_fwd.hpp>
 #include <boost/unordered/unordered_map.hpp>
+#include <boost/process/environment.hpp>
 
 enum EvokerSpells
 {
@@ -45,12 +46,78 @@ enum EvokerSpells
     SPELL_EVOKER_PYRE_DAMAGE               = 357212,
     SPELL_EVOKER_SOAR_RACIAL               = 369536,
     SPELL_EVOKER_LANDSLIDE                 = 358385,
+    SPELL_EVOKER_DEEP_BREATH               = 358385,
     SPELL_EVOKER_LANDSLIDE_AREATRIGGER,
+    SPELL_EVOKER_DEEP_BREATH_AREATRIGGER,
+    SPELL_EVOKER_DEEP_BREATH_AURA,
 };
 
 enum EvokerSpellLabels
 {
     SPELL_LABEL_EVOKER_BLUE                 = 1465,
+};
+
+//358385 spell_evo_DEEP_BREATH
+class spell_evo_Deep_Breath_trigger : public SpellScript
+{
+    bool Validate(SpellInfo const* /*spellInfo*/) override
+    {
+        return ValidateSpellInfo({ SPELL_EVOKER_DEEP_BREATH_AREATRIGGER });
+    }
+
+    void HandleEffectDummy(SpellEffIndex /*effIndex*/)
+    {
+        Position destPos = GetHitDest()->GetPosition();
+        float radius = GetEffectInfo().CalcRadius();
+
+        // Caster is prioritary
+        if (GetCaster()->IsWithinDist2d(&destPos, radius))
+        {
+            GetCaster()->CastSpell(GetCaster(), SPELL_EVOKER_DEEP_BREATH_AURA, true);
+        }
+        else
+        {
+            CastSpellExtraArgs args;
+            args.TriggerFlags = TRIGGERED_FULL_MASK;
+            args.CastDifficulty = GetCastDifficulty();
+            GetCaster()->CastSpell(destPos, SPELL_EVOKER_DEEP_BREATH_AREATRIGGER, args);
+        }
+    }
+
+    void Register() override
+    {
+       // OnEffectHit += SpellEffectFn(spell_evo_deep_breath_trigger::HandleEffectDummy, EFFECT_DUMMY, SPELL_EFFECT_DEEP_BREATH_TRIGGER, EFFECT_2, EFFECT_3, EFFECT_4, EFFECT_5);
+    }
+};
+
+// spell_evo_deep_breath  - created by SPELL_EVOKER_DEEP_BREATH
+struct Spell_evo_deep_breath : SpellScript
+{
+    bool Validate(SpellInfo const* /*spellInfo*/) override
+    {
+        return ValidateSpellInfo({ SPELL_EVOKER_DEEP_BREATH });
+    }
+
+    void HandleEffectDummy(SpellEffIndex /*effIndex*/)
+    {
+        Position destPos = GetHitDest()->GetPosition();
+        float radius = GetEffectInfo().CalcRadius();
+
+        // Caster is prioritary
+        if (GetCaster()->IsWithinDist2d(&destPos, radius))
+        {
+            GetCaster()->CastSpell(GetCaster(), SPELL_EVOKER_DEEP_BREATH, true);
+        }
+        else
+        {
+            CastSpellExtraArgs args;
+            args.TriggerFlags = TRIGGERED_FULL_MASK;
+            args.CastDifficulty = GetCastDifficulty();
+            GetCaster()->CastSpell(destPos, SPELL_EVOKER_DEEP_BREATH, args);
+        }
+    }
+
+    void Register() override;
 };
 
 //358385 spell_evo_landslide
@@ -281,4 +348,6 @@ void AddSC_evoker_spell_scripts()
     RegisterSpellScript(spell_evo_pyre);
     RegisterSpellScript(spell_evo_landslide);
    // RegisterSpellScript(areatrigger_evoker_landslide);
+    RegisterSpellScript(Spell_evo_deep_breath);
+  //  RegisterSpellAndAuraScriptPair(spell_evo_deep_breath, spell_evo_deep_breath_AuraScript);
 }

@@ -43,6 +43,7 @@ enum MageSpells
     SPELL_MAGE_ARCANE_BARRAGE_R3                 = 321526,
     SPELL_MAGE_ARCANE_CHARGE                     = 36032,
     SPELL_MAGE_ARCANE_MAGE                       = 137021,
+    SPELL_MAGE_ARCANE_ORB                        = 153626,
     SPELL_MAGE_BLAZING_BARRIER_TRIGGER           = 235314,
     SPELL_MAGE_BLINK                             = 1953,
     SPELL_MAGE_BLIZZARD_DAMAGE                   = 190357,
@@ -96,6 +97,69 @@ enum MageSpells
     SPELL_MAGE_CHAIN_REACTION                    = 278310,
     SPELL_MAGE_TOUCH_OF_THE_MAGI_EXPLODE         = 210833,
     SPELL_MAGE_WINTERS_CHILL                     = 228358
+};
+
+//153626 spell_mage_arcane_orb
+class spell_mage_arcane_orb : public SpellScript
+{
+    bool Validate(SpellInfo const* /*spellInfo*/) override
+    {
+        return ValidateSpellInfo({ SPELL_MAGE_ARCANE_ORB });
+    }
+
+    void HandleEffectDummy(SpellEffIndex /*effIndex*/)
+    {
+        Position destPos = GetHitDest()->GetPosition();
+        float radius = GetEffectInfo().CalcRadius();
+
+        // Caster is prioritary
+        if (GetCaster()->IsWithinDist2d(&destPos, radius))
+        {
+            GetCaster()->CastSpell(GetCaster(), SPELL_MAGE_ARCANE_ORB, true);
+        }
+        else
+        {
+            CastSpellExtraArgs args;
+            args.TriggerFlags = TRIGGERED_FULL_MASK;
+            args.CastDifficulty = GetCastDifficulty();
+            GetCaster()->CastSpell(destPos, SPELL_MAGE_ARCANE_ORB, args);
+        }
+    }
+
+    void Register() override
+    {
+      //  OnEffectHit += SpellEffectFn(spell_mage_arcane_orb_trigger::HandleEffectDummy, EFFECT_2, SPELL_EFFECT_CREATE_AREA_TRIGGER);
+    }
+};
+
+// Arcane_Orb areatrigger - created by SPELL_MAGE_ARCANE_ORB_AREATRIGGER
+struct areatrigger_mage_arcane_orb : AreaTriggerAI
+{
+    areatrigger_mage_arcane_orb(AreaTrigger* areatrigger) : AreaTriggerAI(areatrigger) { }
+
+    // Called when the AreaTrigger has just been initialized, just before added to map
+    void OnInitialize() override
+    {
+        if (Unit* caster = at->GetCaster())
+        {
+            std::vector<AreaTrigger*> areaTriggers = caster->GetAreaTriggers(SPELL_MAGE_ARCANE_ORB);
+
+            if (areaTriggers.size() >= 40)
+                areaTriggers.front()->SetDuration(1.5);
+        }
+    }
+
+    void OnUnitEnter(Unit* unit) override
+    {
+        if (Unit* caster = at->GetCaster())
+        {
+            if (caster->IsFriendlyTo(unit))
+            {
+                caster->CastSpell(unit, SPELL_MAGE_ARCANE_ORB, true);
+                at->SetDuration(1.5);
+            }
+        }
+    }
 };
 
 // 110909 - Alter Time Aura
@@ -1519,6 +1583,7 @@ void AddSC_mage_spell_scripts()
     RegisterSpellScript(spell_mage_arcane_barrage);
     RegisterSpellScript(spell_mage_arcane_charge_clear);
     RegisterSpellScript(spell_mage_arcane_explosion);
+    RegisterSpellScript(spell_mage_arcane_orb);
     RegisterSpellScript(spell_mage_blazing_barrier);
     RegisterAreaTriggerAI(areatrigger_mage_blizzard);
     RegisterSpellScript(spell_mage_blizzard_damage);

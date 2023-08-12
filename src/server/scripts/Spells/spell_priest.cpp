@@ -109,6 +109,7 @@ enum PriestSpells
     SPELL_PRIEST_MASOCHISM_TALENT                   = 193063,
     SPELL_PRIEST_MASOCHISM_PERIODIC_HEAL            = 193065,
     SPELL_PRIEST_MASTERY_GRACE                      = 271534,
+    SPELL_PRIEST_MIND_SPIKE                         = 228260,
     SPELL_PRIEST_MINDBENDER_DISC                    = 123040,
     SPELL_PRIEST_MINDBENDER_SHADOW                  = 200174,
     SPELL_PRIEST_MINDGAMES                          = 375901,
@@ -170,6 +171,7 @@ enum PriestSpells
 enum PreastData
 {
     SPELL_PRIEST_VOID_ERUPTION_AREATRIGGER,
+    SPELL_PREAST_MINDSPIKE,
 };
 
 enum PriestSpellVisuals
@@ -205,6 +207,35 @@ class RaidCheck
     private:
         Unit const* _caster;
 };
+
+// 228260 - Mind Spike talent
+class spell_pri_mind_spike : public SpellScript
+{
+    bool Validate(SpellInfo const* /*spellInfo*/) override
+    {
+        return ValidateSpellInfo({ SPELL_PRIEST_MIND_SPIKE });
+    }
+
+    void HandleEffectDummy(SpellEffIndex /*effIndex*/)
+    {
+        Position destPos = GetHitDest()->GetPosition();
+        float radius = GetEffectInfo().CalcRadius();
+
+        // Caster is prioritary
+        if (GetCaster()->IsWithinDist2d(&destPos, radius))
+        {
+            GetCaster()->CastSpell(GetCaster(), SPELL_PRIEST_MIND_SPIKE, true);
+        }
+        else
+        {
+            CastSpellExtraArgs args;
+            args.TriggerFlags = TRIGGERED_FULL_MASK;
+            args.CastDifficulty = GetCastDifficulty();
+            GetCaster()->CastSpell(destPos, SPELL_PRIEST_MIND_SPIKE, args);
+        }
+    }
+};
+
 
 // 228260 - Void Eruption talent
 class spell_pri_Void_eruption_trigger : public SpellScript
@@ -2690,5 +2721,7 @@ void AddSC_priest_spell_scripts()
     RegisterSpellScript(spell_pri_vampiric_touch);
     RegisterSpellScript(areatrigger_pri_void_eruption);
     RegisterSpellScript(Spell_pri_void_eruption);
+    RegisterSpellScript(spell_pri_mind_spike);
     //RegisterSpellAndAuraScriptPair(spell_void_eruption, spell_void_eruption_aura);
+    //RegisterSpellAndAuraScriptPair(Spell_priest_mind_spike, spell_mindspike);
 }
