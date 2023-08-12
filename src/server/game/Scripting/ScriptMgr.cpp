@@ -58,8 +58,8 @@ struct is_script_database_bound
     : std::false_type { };
 
 template<>
-struct is_script_database_bound<OnPlayerUpdate>
-    : std::true_type { };    
+//struct is_script_database_bound<OnPlayerUpdate>
+ //   : std::true_type { };    
 
 template<>
 struct is_script_database_bound<SpellScriptLoader>
@@ -1958,10 +1958,10 @@ void ScriptMgr::OnCreatureKill(Player* killer, Creature* killed)
     FOREACH_SCRIPT(PlayerScript)->OnCreatureKill(killer, killed);
 }
 
-void ScriptMgr::OnPlayerUpdate(Player* player, uint32 p_time)
-{
-    FOREACH_SCRIPT(PlayerScript)->OnUpdate(player, p_time);
-}
+//void ScriptMgr::OnPlayerUpdate(Player* player, uint32 p_time)
+//{
+  //  FOREACH_SCRIPT(PlayerScript)->OnUpdate(player, p_time);
+//}
 
 void ScriptMgr::OnPlayerKilledByCreature(Creature* killer, Player* killed)
 {
@@ -2888,9 +2888,9 @@ PlayerScript::PlayerScript(char const* name)
 
 PlayerScript::~PlayerScript() = default;
 
-void PlayerScript::OnPlayerUpdate( Player* /*player*/, uint32 /*p_time*/)
-{
-}
+//void PlayerScript::OnPlayerUpdate( Player* /*player*/, uint32 /*p_time*/)
+//{
+//}
 
 void PlayerScript::OnPVPKill(Player* /*killer*/, Player* /*killed*/)
 {

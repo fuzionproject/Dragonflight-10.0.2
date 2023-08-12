@@ -29,6 +29,9 @@
 #include "SpellHistory.h"
 #include "SpellMgr.h"
 #include "SpellScript.h"
+#include "../../../../dep/efsw/src/efsw/String.hpp"
+#include <boost/fusion/sequence/intrinsic_fwd.hpp>
+#include <boost/unordered/unordered_map.hpp>
 
 enum EvokerSpells
 {
@@ -40,7 +43,9 @@ enum EvokerSpells
     SPELL_EVOKER_LIVING_FLAME_HEAL         = 361509,
     SPELL_EVOKER_PERMEATING_CHILL_TALENT   = 370897,
     SPELL_EVOKER_PYRE_DAMAGE               = 357212,
-    SPELL_EVOKER_SOAR_RACIAL               = 369536
+    SPELL_EVOKER_SOAR_RACIAL               = 369536,
+    SPELL_EVOKER_LANDSLIDE                 = 358385,
+    SPELL_EVOKER_LANDSLIDE_AREATRIGGER,
 };
 
 enum EvokerSpellLabels
@@ -48,6 +53,69 @@ enum EvokerSpellLabels
     SPELL_LABEL_EVOKER_BLUE                 = 1465,
 };
 
+//358385 spell_evo_landslide
+class spell_evo_landslide : public SpellScript
+{
+    bool Validate(SpellInfo const* /*spellInfo*/) override
+    {
+        return ValidateSpellInfo({ SPELL_EVOKER_LANDSLIDE });
+    }
+
+    void HandleEffectDummy(SpellEffIndex /*effIndex*/)
+    {
+        Position destPos = GetHitDest()->GetPosition();
+        float radius = GetEffectInfo().CalcRadius();
+
+        // Caster is prioritary
+        if (GetCaster()->IsWithinDist2d(&destPos, radius))
+        {
+            GetCaster()->CastSpell(GetCaster(), SPELL_EVOKER_LANDSLIDE, true);
+        }
+        else
+        {
+            CastSpellExtraArgs args;
+            args.TriggerFlags = TRIGGERED_FULL_MASK;
+            args.CastDifficulty = GetCastDifficulty();
+            GetCaster()->CastSpell(destPos, SPELL_EVOKER_LANDSLIDE, args);
+        }
+    }
+
+    void Register() override
+    {
+       // OnEffectHit += SpellEffectFn(spell_mage_arcane_orb_trigger::HandleEffectDummy, EFFECT_DUMMY, SPELL_EFFECT_LANDSLIDE_TRIGGER);
+    }
+};
+/*
+// spell_evo_landslide areatrigger - created by SPELL_EVOKER_LANDSLIDE_AREATRIGGER
+struct areatrigger_evoker_landslide : AreaTriggerAI
+{
+    areatrigger_evoker_landslide(AreaTrigger* areatrigger) : AreaTriggerAI(areatrigger) { }
+
+    // Called when the AreaTrigger has just been initialized, just before added to map
+    void OnInitialize() 
+    {
+        if (Unit* caster = at->GetCaster())
+        {
+            std::vector<AreaTrigger*> areaTriggers = caster->GetAreaTriggers(SPELL_EVOKER_LANDSLIDE_AREATRIGGER);
+
+            if (areaTriggers.size() >= 40)
+                areaTriggers.front()->SetDuration(1.5);
+        }
+    }
+
+    void OnUnitEnter(Unit* unit) 
+    {
+        if (Unit* caster = at->GetCaster())
+        {
+            if (caster->IsFriendlyTo(unit))
+            {
+                caster->CastSpell(unit, SPELL_EVOKER_LANDSLIDE, true);
+                at->SetDuration(1.5);
+            }
+        }
+    }
+};
+*/
 // 362969 - Azure Strike (blue)
 class spell_evo_azure_strike : public SpellScript
 {
@@ -211,4 +279,6 @@ void AddSC_evoker_spell_scripts()
     RegisterSpellScript(spell_evo_living_flame);
     RegisterSpellScript(spell_evo_permeating_chill);
     RegisterSpellScript(spell_evo_pyre);
+    RegisterSpellScript(spell_evo_landslide);
+   // RegisterSpellScript(areatrigger_evoker_landslide);
 }

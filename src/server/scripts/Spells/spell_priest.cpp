@@ -161,9 +161,15 @@ enum PriestSpells
     SPELL_PRIEST_TRINITY                            = 214205,
     SPELL_PRIEST_VAMPIRIC_EMBRACE_HEAL              = 15290,
     SPELL_PRIEST_VAMPIRIC_TOUCH_DISPEL              = 64085,
+    SPELL_PRIEST_VOID_ERUPTION                      = 228260,
     SPELL_PRIEST_VOID_SHIELD                        = 199144,
     SPELL_PRIEST_VOID_SHIELD_EFFECT                 = 199145,
     SPELL_PRIEST_WEAKENED_SOUL                      = 6788
+};
+
+enum PreastData
+{
+    SPELL_PRIEST_VOID_ERUPTION_AREATRIGGER,
 };
 
 enum PriestSpellVisuals
@@ -198,6 +204,74 @@ class RaidCheck
 
     private:
         Unit const* _caster;
+};
+
+// 228260 - Void Eruption talent
+class spell_pri_Void_eruption_trigger : public SpellScript
+{
+    bool Validate(SpellInfo const* /*spellInfo*/) override
+    {
+        return ValidateSpellInfo({ SPELL_PRIEST_VOID_ERUPTION_AREATRIGGER });
+    }
+
+    void HandleEffectDummy(SpellEffIndex /*effIndex*/)
+    {
+        Position destPos = GetHitDest()->GetPosition();
+        float radius = GetEffectInfo().CalcRadius();
+
+        // Caster is prioritary
+        if (GetCaster()->IsWithinDist2d(&destPos, radius))
+        {
+            GetCaster()->CastSpell(GetCaster(), SPELL_PRIEST_VOID_ERUPTION, true);
+        }
+        else
+        {
+            CastSpellExtraArgs args;
+            args.TriggerFlags = TRIGGERED_FULL_MASK;
+            args.CastDifficulty = GetCastDifficulty();
+            GetCaster()->CastSpell(destPos, SPELL_PRIEST_VOID_ERUPTION_AREATRIGGER, args);
+        }
+    }
+
+    void Register() override
+    {
+       // OnEffectHit += SpellEffectFn(spell_pri_void_eruption_trigger::HandleEffectDummy, EFFECT_1);
+    }
+};
+
+// Void_Eruption areatrigger - created by SPELL_PRIEST_VOID_ERUPTION_AREATRIGGER
+struct areatrigger_pri_void_eruption : AreaTriggerAI
+{
+    areatrigger_pri_void_eruption(AreaTrigger* areatrigger) : AreaTriggerAI(areatrigger) { }
+
+    // Called when the AreaTrigger has just been initialized, just before added to map
+    void OnInitialize() override
+    {
+        if (Unit* caster = at->GetCaster())
+        {
+            std::vector<AreaTrigger*> areaTriggers = caster->GetAreaTriggers(SPELL_PRIEST_VOID_ERUPTION_AREATRIGGER);
+
+            if (areaTriggers.size() >= 40)
+                areaTriggers.front()->SetDuration(1.5);
+        }
+    }
+
+    void OnUnitEnter(Unit* unit) override
+    {
+        if (Unit* caster = at->GetCaster())
+        {
+            if (caster->IsFriendlyTo(unit))
+            {
+                caster->CastSpell(unit, SPELL_PRIEST_VOID_ERUPTION, true);
+                at->SetDuration(1.5);
+            }
+        }
+    }
+};
+
+struct Spell_pri_void_eruption : SpellScript
+{
+   // Spell_Pri_void_eruption()
 };
 
 // 121536 - Angelic Feather talent
@@ -2614,4 +2688,7 @@ void AddSC_priest_spell_scripts()
     RegisterSpellScript(spell_pri_vampiric_embrace);
     RegisterSpellScript(spell_pri_vampiric_embrace_target);
     RegisterSpellScript(spell_pri_vampiric_touch);
+    RegisterSpellScript(areatrigger_pri_void_eruption);
+    RegisterSpellScript(Spell_pri_void_eruption);
+    //RegisterSpellAndAuraScriptPair(spell_void_eruption, spell_void_eruption_aura);
 }
