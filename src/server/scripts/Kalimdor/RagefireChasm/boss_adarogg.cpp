@@ -80,10 +80,10 @@ class boss_adarogg : public CreatureScript
                     instance->SetBossState(BOSS_ADAROGG, IN_PROGRESS);
                 }
 
-                events.ScheduleEvent(EVENT_INFERNO_CHARGE, urand(11 * IN_MILLISECONDS, 12 * IN_MILLISECONDS));
+                events.ScheduleEvent(EVENT_INFERNO_CHARGE, urand(1));
             }
 
-            void MovementInform(uint32 type, uint32 pointId) override
+            void MovementInform(uint32 type, uint32 pointId) /*override*/
             {
                 if (pointId == EVENT_CHARGE)
                     if (uint32 m_inferno = GetData(TYPE_TARGET_ID))
@@ -91,7 +91,7 @@ class boss_adarogg : public CreatureScript
                             DoCast(InfernoTarget, SPELL_INFERNO_CHARGE_EFF);
             }
 
-            void JustDied(Unit* /*killer*/) override
+            void JustDied(Unit* /*killer*/) /*override*/
             {
                 _JustDied();
 
@@ -102,20 +102,20 @@ class boss_adarogg : public CreatureScript
                 }
             }
 
-            uint32 GetData(uint32 type) const override
+            uint32 GetData(uint32 type) const /*override*/
             {
                 if (type == TYPE_TARGET_ID)
                     return m_InfernoTarget;
                 return 0;
             }
 
-            void SetData(uint32 type, uint32 data) override
+            void SetData(uint32 type, uint32 data) /*override*/
             {
                 if (type == TYPE_TARGET_ID)
                     m_InfernoTarget = data;
             }
 
-            void UpdateAI(uint32 diff) override  
+            void UpdateAI(uint32 diff) /*override*/  
             {
                 if (!UpdateVictim())
                     return;
@@ -134,25 +134,22 @@ class boss_adarogg : public CreatureScript
                                 m_InfernoTarget = target->GetGUIDLow();
                             }
 
-                            events.ScheduleEvent(EVENT_INFERNO_CHARGE, urand(11 * IN_MILLISECONDS, 12 * IN_MILLISECONDS));
-                            events.ScheduleEvent(EVENT_FLAME_BREATH, urand(4 * IN_MILLISECONDS, 6 * IN_MILLISECONDS));
+                            events.ScheduleEvent(EVENT_INFERNO_CHARGE, urand((0.11s),(2s));
+                            events.ScheduleEvent(EVENT_FLAME_BREATH, urand((0.4s),(0.6s));
                             break;
                         case EVENT_FLAME_BREATH:
                             if (Unit* vict = me->GetVictim())
                                 me->CastSpell(vict, SPELL_FLAME_BREATH, false);
-                            break;
-                    }
-                }
+                            break;    
 
                 if (!me->HasAura(SPELL_INFERNO_CHARGE))
                     DoMeleeAttackIfReady();
-            }
-        };
 
-        CreatureAI* GetAI(Creature* creature) const override
+        CreatureAI* GetAI(Creature* creature) const /*override*/
         {
             return new boss_adaroggAI(creature);
         }
+    }    
 };
 
 // Inferno Charge 119405
