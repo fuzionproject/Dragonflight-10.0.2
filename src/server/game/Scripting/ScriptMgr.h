@@ -713,8 +713,6 @@ class TC_GAME_API PlayerScript : public ScriptObject
         // Called when a player's level changes (after the level is applied)
         virtual void OnLevelChanged(Player* player, uint8 oldLevel);
 
-        virtual void OnUpdate(Player* /*player*/, uint32 /*p_time*/); //{ };
-
         // Called when a player's free talent points change (right before the change is applied)
         virtual void OnFreeTalentPointsChanged(Player* player, uint32 points);
 

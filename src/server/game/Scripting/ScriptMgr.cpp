@@ -2895,10 +2895,6 @@ void PlayerScript::OnLevelChanged(Player* /*player*/, uint8 /*oldLevel*/)
 {
 }
 
-void PlayerScript::OnUpdate(Player*, uint32)
-{
-}
-
 void PlayerScript::OnFreeTalentPointsChanged(Player* /*player*/, uint32 /*points*/)
 {
 }
