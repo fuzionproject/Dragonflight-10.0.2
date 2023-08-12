@@ -17,7 +17,7 @@
 
 #ifndef RAGEFIRE_CHASM_N
 #define RAGEFIRE_CHASM_N
-
+/*
 const Position SlagMawPoints[3]
 {
     { -256.643f, 172.957f, -16.253f, 5.383f },
@@ -51,5 +51,5 @@ enum eType
 {
     TYPE_TARGET_ID = 1,
 };
-
+*/
 #endif // RAGEFIRE_CHASM_N
