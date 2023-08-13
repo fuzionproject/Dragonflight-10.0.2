@@ -15,11 +15,11 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Scripts for spells with SPELLFAMILY_PRIEST and SPELLFAMILY_GENERIC spells used by priest players.
- * Ordered alphabetically using scriptname.
- * Scriptnames of files in this file should be prefixed with "spell_pri_".
- */
+ /*
+  * Scripts for spells with SPELLFAMILY_PRIEST and SPELLFAMILY_GENERIC spells used by priest players.
+  * Ordered alphabetically using scriptname.
+  * Scriptnames of files in this file should be prefixed with "spell_pri_".
+  */
 
 #include "ScriptMgr.h"
 #include "AreaTriggerAI.h"
@@ -40,204 +40,164 @@
 
 enum PriestSpells
 {
-    SPELL_PRIEST_ANGELIC_FEATHER_AREATRIGGER        = 158624,
-    SPELL_PRIEST_ANGELIC_FEATHER_AURA               = 121557,
-    SPELL_PRIEST_ANSWERED_PRAYERS                   = 394289,
-    SPELL_PRIEST_APOTHEOSIS                         = 200183,
-    SPELL_PRIEST_ARMOR_OF_FAITH                     = 28810,
-    SPELL_PRIEST_ATONEMENT                          = 81749,
-    SPELL_PRIEST_ATONEMENT_HEAL                     = 81751,
-    SPELL_PRIEST_ATONEMENT_TRIGGERED                = 194384,
-    SPELL_PRIEST_ATONEMENT_TRIGGERED_TRINITY        = 214206,
-    SPELL_PRIEST_BENEDICTION                        = 193157,
-    SPELL_PRIEST_BLESSED_HEALING                    = 70772,
-    SPELL_PRIEST_BLESSED_LIGHT                      = 196813,
-    SPELL_PRIEST_BODY_AND_SOUL                      = 64129,
-    SPELL_PRIEST_BODY_AND_SOUL_SPEED                = 65081,
-    SPELL_PRIEST_CIRCLE_OF_HEALING                  = 204883,
-    SPELL_PRIEST_DARK_REPRIMAND                     = 400169,
-    SPELL_PRIEST_DARK_REPRIMAND_CHANNEL_DAMAGE      = 373129,
-    SPELL_PRIEST_DARK_REPRIMAND_CHANNEL_HEALING     = 400171,
-    SPELL_PRIEST_DARK_REPRIMAND_DAMAGE              = 373130,
-    SPELL_PRIEST_DARK_REPRIMAND_HEALING             = 400187,
-    SPELL_PRIEST_DAZZLING_LIGHT                     = 196810,
-    SPELL_PRIEST_DIVINE_BLESSING                    = 40440,
-    SPELL_PRIEST_DIVINE_HYMN_HEAL                   = 64844,
-    SPELL_PRIEST_DIVINE_IMAGE_SUMMON                = 392990,
-    SPELL_PRIEST_DIVINE_IMAGE_EMPOWER               = 409387,
-    SPELL_PRIEST_DIVINE_IMAGE_EMPOWER_STACK         = 405963,
-    SPELL_PRIEST_DIVINE_SERVICE                     = 391233,
-    SPELL_PRIEST_DIVINE_STAR_HOLY                   = 110744,
-    SPELL_PRIEST_DIVINE_STAR_SHADOW                 = 122121,
-    SPELL_PRIEST_DIVINE_STAR_HOLY_DAMAGE            = 122128,
-    SPELL_PRIEST_DIVINE_STAR_HOLY_HEAL              = 110745,
-    SPELL_PRIEST_DIVINE_STAR_SHADOW_DAMAGE          = 390845,
-    SPELL_PRIEST_DIVINE_STAR_SHADOW_HEAL            = 390981,
-    SPELL_PRIEST_DIVINE_WRATH                       = 40441,
-    SPELL_PRIEST_EMPOWERED_RENEW_HEAL               = 391359,
-    SPELL_PRIEST_EPIPHANY                           = 414553,
-    SPELL_PRIEST_EPIPHANY_HIGHLIGHT                 = 414556,
-    SPELL_PRIEST_ESSENCE_DEVOURER                   = 415479,
-    SPELL_PRIEST_ESSENCE_DEVOURER_SHADOWFIEND_HEAL  = 415673,
-    SPELL_PRIEST_ESSENCE_DEVOURER_MINDBENDER_HEAL   = 415676,
-    SPELL_PRIEST_FLASH_HEAL                         = 2061,
-    SPELL_PRIEST_GREATER_HEAL                       = 289666,
-    SPELL_PRIEST_FOCUSED_MENDING                    = 372354,
-    SPELL_PRIEST_GUARDIAN_SPIRIT_HEAL               = 48153,
-    SPELL_PRIEST_HALO_HOLY                          = 120517,
-    SPELL_PRIEST_HALO_SHADOW                        = 120644,
-    SPELL_PRIEST_HALO_HOLY_DAMAGE                   = 120696,
-    SPELL_PRIEST_HALO_HOLY_HEAL                     = 120692,
-    SPELL_PRIEST_HALO_SHADOW_DAMAGE                 = 390964,
-    SPELL_PRIEST_HALO_SHADOW_HEAL                   = 390971,
-    SPELL_PRIEST_HEAL                               = 2060,
-    SPELL_PRIEST_HEALING_LIGHT                      = 196809,
-    SPELL_PRIEST_HOLY_FIRE                          = 14914,
-    SPELL_PRIEST_HOLY_MENDING_HEAL                  = 391156,
-    SPELL_PRIEST_HOLY_NOVA                          = 132157,
-    SPELL_PRIEST_HOLY_WORD_CHASTISE                 = 88625,
-    SPELL_PRIEST_HOLY_WORD_SALVATION                = 265202,
-    SPELL_PRIEST_HOLY_WORD_SANCTIFY                 = 34861,
-    SPELL_PRIEST_HOLY_WORD_SERENITY                 = 2050,
-    SPELL_PRIEST_HOLY_10_1_CLASS_SET_2P_CHOOSER     = 411097,
-    SPELL_PRIEST_HOLY_10_1_CLASS_SET_4P             = 405556,
-    SPELL_PRIEST_HOLY_10_1_CLASS_SET_4P_EFFECT      = 409479,
-    SPELL_PRIEST_ITEM_EFFICIENCY                    = 37595,
-    SPELL_PRIEST_LEAP_OF_FAITH_EFFECT               = 92832,
-    SPELL_PRIEST_LEVITATE_EFFECT                    = 111759,
-    SPELL_PRIEST_LIGHT_ERUPTION                     = 196812,
-    SPELL_PRIEST_MASOCHISM_TALENT                   = 193063,
-    SPELL_PRIEST_MASOCHISM_PERIODIC_HEAL            = 193065,
-    SPELL_PRIEST_MASTERY_GRACE                      = 271534,
-    SPELL_PRIEST_MIND_SPIKE                         = 228260,
-    SPELL_PRIEST_MINDBENDER_DISC                    = 123040,
-    SPELL_PRIEST_MINDBENDER_SHADOW                  = 200174,
-    SPELL_PRIEST_MINDGAMES                          = 375901,
-    SPELL_PRIEST_MINDGAMES_VENTHYR                  = 323673,
-    SPELL_PRIEST_MIND_BOMB_STUN                     = 226943,
-    SPELL_PRIEST_ORACULAR_HEAL                      = 26170,
-    SPELL_PRIEST_PENANCE                            = 47540,
-    SPELL_PRIEST_PENANCE_CHANNEL_DAMAGE             = 47758,
-    SPELL_PRIEST_PENANCE_CHANNEL_HEALING            = 47757,
-    SPELL_PRIEST_PENANCE_DAMAGE                     = 47666,
-    SPELL_PRIEST_PENANCE_HEALING                    = 47750,
-    SPELL_PRIEST_POWER_LEECH_MINDBENDER_MANA        = 123051,
-    SPELL_PRIEST_POWER_LEECH_MINDBENDER_INSANITY    = 200010,
-    SPELL_PRIEST_POWER_LEECH_SHADOWFIEND_MANA       = 343727,
-    SPELL_PRIEST_POWER_LEECH_SHADOWFIEND_INSANITY   = 262485,
-    SPELL_PRIEST_POWER_OF_THE_DARK_SIDE             = 198069,
-    SPELL_PRIEST_POWER_OF_THE_DARK_SIDE_TINT        = 225795,
-    SPELL_PRIEST_POWER_WORD_LIFE                    = 373481,
-    SPELL_PRIEST_POWER_WORD_SHIELD                  = 17,
-    SPELL_PRIEST_POWER_WORD_SOLACE_ENERGIZE         = 129253,
-    SPELL_PRIEST_PRAYER_OF_HEALING                  = 596,
-    SPELL_PRIEST_PRAYER_OF_MENDING                  = 33076,
-    SPELL_PRIEST_PRAYER_OF_MENDING_AURA             = 41635,
-    SPELL_PRIEST_PRAYER_OF_MENDING_HEAL             = 33110,
-    SPELL_PRIEST_PRAYER_OF_MENDING_JUMP             = 155793,
-    SPELL_PRIEST_PURGE_THE_WICKED                   = 204197,
-    SPELL_PRIEST_PURGE_THE_WICKED_DUMMY             = 204215,
-    SPELL_PRIEST_PURGE_THE_WICKED_PERIODIC          = 204213,
-    SPELL_PRIEST_RAPTURE                            = 47536,
-    SPELL_PRIEST_RENEW                              = 139,
-    SPELL_PRIEST_RENEWED_HOPE                       = 197469,
-    SPELL_PRIEST_RENEWED_HOPE_EFFECT                = 197470,
-    SPELL_PRIEST_REVEL_IN_PURITY                    = 373003,
-    SPELL_PRIEST_SAY_YOUR_PRAYERS                   = 391186,
-    SPELL_PRIEST_SEARING_LIGHT                      = 196811,
-    SPELL_PRIEST_SHADOW_MEND_DAMAGE                 = 186439,
-    SPELL_PRIEST_SHADOW_WORD_DEATH                  = 32379,
-    SPELL_PRIEST_SHADOW_MEND_PERIODIC_DUMMY         = 187464,
-    SPELL_PRIEST_SHADOW_WORD_PAIN                   = 589,
-    SPELL_PRIEST_SHIELD_DISCIPLINE_ENERGIZE         = 47755,
-    SPELL_PRIEST_SHIELD_DISCIPLINE_PASSIVE          = 197045,
-    SPELL_PRIEST_SINS_OF_THE_MANY                   = 280398,
-    SPELL_PRIEST_SMITE                              = 585,
-    SPELL_PRIEST_SPIRIT_OF_REDEMPTION               = 27827,
-    SPELL_PRIEST_STRENGTH_OF_SOUL                   = 197535,
-    SPELL_PRIEST_STRENGTH_OF_SOUL_EFFECT            = 197548,
-    SPELL_PRIEST_TRANQUIL_LIGHT                     = 196816,
-    SPELL_PRIEST_THE_PENITENT_AURA                  = 200347,
-    SPELL_PRIEST_TRAIL_OF_LIGHT_HEAL                = 234946,
-    SPELL_PRIEST_TRINITY                            = 214205,
-    SPELL_PRIEST_VAMPIRIC_EMBRACE_HEAL              = 15290,
-    SPELL_PRIEST_VAMPIRIC_TOUCH_DISPEL              = 64085,
-    SPELL_PRIEST_VOID_ERUPTION                      = 228260,
-    SPELL_PRIEST_VOID_SHIELD                        = 199144,
-    SPELL_PRIEST_VOID_SHIELD_EFFECT                 = 199145,
-    SPELL_PRIEST_WEAKENED_SOUL                      = 6788
+    SPELL_PRIEST_ANGELIC_FEATHER_AREATRIGGER = 158624,
+    SPELL_PRIEST_ANGELIC_FEATHER_AURA = 121557,
+    SPELL_PRIEST_ANSWERED_PRAYERS = 394289,
+    SPELL_PRIEST_APOTHEOSIS = 200183,
+    SPELL_PRIEST_ARMOR_OF_FAITH = 28810,
+    SPELL_PRIEST_ATONEMENT = 81749,
+    SPELL_PRIEST_ATONEMENT_HEAL = 81751,
+    SPELL_PRIEST_ATONEMENT_TRIGGERED = 194384,
+    SPELL_PRIEST_ATONEMENT_TRIGGERED_TRINITY = 214206,
+    SPELL_PRIEST_BENEDICTION = 193157,
+    SPELL_PRIEST_BLESSED_HEALING = 70772,
+    SPELL_PRIEST_BLESSED_LIGHT = 196813,
+    SPELL_PRIEST_BODY_AND_SOUL = 64129,
+    SPELL_PRIEST_BODY_AND_SOUL_SPEED = 65081,
+    SPELL_PRIEST_CIRCLE_OF_HEALING = 204883,
+    SPELL_PRIEST_DARK_REPRIMAND = 400169,
+    SPELL_PRIEST_DARK_REPRIMAND_CHANNEL_DAMAGE = 373129,
+    SPELL_PRIEST_DARK_REPRIMAND_CHANNEL_HEALING = 400171,
+    SPELL_PRIEST_DARK_REPRIMAND_DAMAGE = 373130,
+    SPELL_PRIEST_DARK_REPRIMAND_HEALING = 400187,
+    SPELL_PRIEST_DAZZLING_LIGHT = 196810,
+    SPELL_PRIEST_DIVINE_BLESSING = 40440,
+    SPELL_PRIEST_DIVINE_HYMN_HEAL = 64844,
+    SPELL_PRIEST_DIVINE_IMAGE_SUMMON = 392990,
+    SPELL_PRIEST_DIVINE_IMAGE_EMPOWER = 409387,
+    SPELL_PRIEST_DIVINE_IMAGE_EMPOWER_STACK = 405963,
+    SPELL_PRIEST_DIVINE_SERVICE = 391233,
+    SPELL_PRIEST_DIVINE_STAR_HOLY = 110744,
+    SPELL_PRIEST_DIVINE_STAR_SHADOW = 122121,
+    SPELL_PRIEST_DIVINE_STAR_HOLY_DAMAGE = 122128,
+    SPELL_PRIEST_DIVINE_STAR_HOLY_HEAL = 110745,
+    SPELL_PRIEST_DIVINE_STAR_SHADOW_DAMAGE = 390845,
+    SPELL_PRIEST_DIVINE_STAR_SHADOW_HEAL = 390981,
+    SPELL_PRIEST_DIVINE_WRATH = 40441,
+    SPELL_PRIEST_EMPOWERED_RENEW_HEAL = 391359,
+    SPELL_PRIEST_EPIPHANY = 414553,
+    SPELL_PRIEST_EPIPHANY_HIGHLIGHT = 414556,
+    SPELL_PRIEST_ESSENCE_DEVOURER = 415479,
+    SPELL_PRIEST_ESSENCE_DEVOURER_SHADOWFIEND_HEAL = 415673,
+    SPELL_PRIEST_ESSENCE_DEVOURER_MINDBENDER_HEAL = 415676,
+    SPELL_PRIEST_FLASH_HEAL = 2061,
+    SPELL_PRIEST_GREATER_HEAL = 289666,
+    SPELL_PRIEST_FOCUSED_MENDING = 372354,
+    SPELL_PRIEST_GUARDIAN_SPIRIT_HEAL = 48153,
+    SPELL_PRIEST_HALO_HOLY = 120517,
+    SPELL_PRIEST_HALO_SHADOW = 120644,
+    SPELL_PRIEST_HALO_HOLY_DAMAGE = 120696,
+    SPELL_PRIEST_HALO_HOLY_HEAL = 120692,
+    SPELL_PRIEST_HALO_SHADOW_DAMAGE = 390964,
+    SPELL_PRIEST_HALO_SHADOW_HEAL = 390971,
+    SPELL_PRIEST_HEAL = 2060,
+    SPELL_PRIEST_HEALING_LIGHT = 196809,
+    SPELL_PRIEST_HOLY_FIRE = 14914,
+    SPELL_PRIEST_HOLY_MENDING_HEAL = 391156,
+    SPELL_PRIEST_HOLY_NOVA = 132157,
+    SPELL_PRIEST_HOLY_WORD_CHASTISE = 88625,
+    SPELL_PRIEST_HOLY_WORD_SALVATION = 265202,
+    SPELL_PRIEST_HOLY_WORD_SANCTIFY = 34861,
+    SPELL_PRIEST_HOLY_WORD_SERENITY = 2050,
+    SPELL_PRIEST_HOLY_10_1_CLASS_SET_2P_CHOOSER = 411097,
+    SPELL_PRIEST_HOLY_10_1_CLASS_SET_4P = 405556,
+    SPELL_PRIEST_HOLY_10_1_CLASS_SET_4P_EFFECT = 409479,
+    SPELL_PRIEST_ITEM_EFFICIENCY = 37595,
+    SPELL_PRIEST_LEAP_OF_FAITH_EFFECT = 92832,
+    SPELL_PRIEST_LEVITATE_EFFECT = 111759,
+    SPELL_PRIEST_LIGHT_ERUPTION = 196812,
+    SPELL_PRIEST_MASOCHISM_TALENT = 193063,
+    SPELL_PRIEST_MASOCHISM_PERIODIC_HEAL = 193065,
+    SPELL_PRIEST_MASTERY_GRACE = 271534,
+    SPELL_PRIEST_MINDBENDER_DISC = 123040,
+    SPELL_PRIEST_MINDBENDER_SHADOW = 200174,
+    SPELL_PRIEST_MINDGAMES = 375901,
+    SPELL_PRIEST_MINDGAMES_VENTHYR = 323673,
+    SPELL_PRIEST_MIND_BOMB_STUN = 226943,
+    SPELL_PRIEST_ORACULAR_HEAL = 26170,
+    SPELL_PRIEST_PENANCE = 47540,
+    SPELL_PRIEST_PENANCE_CHANNEL_DAMAGE = 47758,
+    SPELL_PRIEST_PENANCE_CHANNEL_HEALING = 47757,
+    SPELL_PRIEST_PENANCE_DAMAGE = 47666,
+    SPELL_PRIEST_PENANCE_HEALING = 47750,
+    SPELL_PRIEST_POWER_LEECH_MINDBENDER_MANA = 123051,
+    SPELL_PRIEST_POWER_LEECH_MINDBENDER_INSANITY = 200010,
+    SPELL_PRIEST_POWER_LEECH_SHADOWFIEND_MANA = 343727,
+    SPELL_PRIEST_POWER_LEECH_SHADOWFIEND_INSANITY = 262485,
+    SPELL_PRIEST_POWER_OF_THE_DARK_SIDE = 198069,
+    SPELL_PRIEST_POWER_OF_THE_DARK_SIDE_TINT = 225795,
+    SPELL_PRIEST_POWER_WORD_LIFE = 373481,
+    SPELL_PRIEST_POWER_WORD_SHIELD = 17,
+    SPELL_PRIEST_POWER_WORD_SOLACE_ENERGIZE = 129253,
+    SPELL_PRIEST_PRAYER_OF_HEALING = 596,
+    SPELL_PRIEST_PRAYER_OF_MENDING = 33076,
+    SPELL_PRIEST_PRAYER_OF_MENDING_AURA = 41635,
+    SPELL_PRIEST_PRAYER_OF_MENDING_HEAL = 33110,
+    SPELL_PRIEST_PRAYER_OF_MENDING_JUMP = 155793,
+    SPELL_PRIEST_PURGE_THE_WICKED = 204197,
+    SPELL_PRIEST_PURGE_THE_WICKED_DUMMY = 204215,
+    SPELL_PRIEST_PURGE_THE_WICKED_PERIODIC = 204213,
+    SPELL_PRIEST_RAPTURE = 47536,
+    SPELL_PRIEST_RENEW = 139,
+    SPELL_PRIEST_RENEWED_HOPE = 197469,
+    SPELL_PRIEST_RENEWED_HOPE_EFFECT = 197470,
+    SPELL_PRIEST_REVEL_IN_PURITY = 373003,
+    SPELL_PRIEST_SAY_YOUR_PRAYERS = 391186,
+    SPELL_PRIEST_SEARING_LIGHT = 196811,
+    SPELL_PRIEST_SHADOW_MEND_DAMAGE = 186439,
+    SPELL_PRIEST_SHADOW_WORD_DEATH = 32379,
+    SPELL_PRIEST_SHADOW_MEND_PERIODIC_DUMMY = 187464,
+    SPELL_PRIEST_SHADOW_WORD_PAIN = 589,
+    SPELL_PRIEST_SHIELD_DISCIPLINE_ENERGIZE = 47755,
+    SPELL_PRIEST_SHIELD_DISCIPLINE_PASSIVE = 197045,
+    SPELL_PRIEST_SINS_OF_THE_MANY = 280398,
+    SPELL_PRIEST_SMITE = 585,
+    SPELL_PRIEST_SPIRIT_OF_REDEMPTION = 27827,
+    SPELL_PRIEST_STRENGTH_OF_SOUL = 197535,
+    SPELL_PRIEST_STRENGTH_OF_SOUL_EFFECT = 197548,
+    SPELL_PRIEST_TRANQUIL_LIGHT = 196816,
+    SPELL_PRIEST_THE_PENITENT_AURA = 200347,
+    SPELL_PRIEST_TRAIL_OF_LIGHT_HEAL = 234946,
+    SPELL_PRIEST_TRINITY = 214205,
+    SPELL_PRIEST_VAMPIRIC_EMBRACE_HEAL = 15290,
+    SPELL_PRIEST_VAMPIRIC_TOUCH_DISPEL = 64085,
+    SPELL_PRIEST_VOID_SHIELD = 199144,
+    SPELL_PRIEST_VOID_SHIELD_EFFECT = 199145,
+    SPELL_PRIEST_WEAKENED_SOUL = 6788
 };
-
-
 
 enum PriestSpellVisuals
 {
-    SPELL_VISUAL_PRIEST_PRAYER_OF_MENDING           = 38945
+    SPELL_VISUAL_PRIEST_PRAYER_OF_MENDING = 38945
 };
 
 enum PriestSummons
 {
-    NPC_PRIEST_DIVINE_IMAGE                         = 198236,
-    NPC_PRIEST_MINDBENDER                           = 62982,
-    NPC_PRIEST_SHADOWFIEND                          = 19668
+    NPC_PRIEST_DIVINE_IMAGE = 198236,
+    NPC_PRIEST_MINDBENDER = 62982,
+    NPC_PRIEST_SHADOWFIEND = 19668
 };
 
 enum MiscSpells
 {
-    SPELL_GEN_REPLENISHMENT                         = 57669
+    SPELL_GEN_REPLENISHMENT = 57669
 };
 
 class RaidCheck
 {
-    public:
-        explicit RaidCheck(Unit const* caster) : _caster(caster) { }
+public:
+    explicit RaidCheck(Unit const* caster) : _caster(caster) { }
 
-        bool operator()(WorldObject* obj) const
-        {
-            if (Unit* target = obj->ToUnit())
-                return !_caster->IsInRaidWith(target);
-
-            return true;
-        }
-
-    private:
-        Unit const* _caster;
-};
-
-// 228260 - Mind Spike talent
-class spell_pri_mind_spike : public SpellScript
-{
-    bool Validate(SpellInfo const* /*spellInfo*/) override
+    bool operator()(WorldObject* obj) const
     {
-        return ValidateSpellInfo({ SPELL_PRIEST_MIND_SPIKE });
+        if (Unit* target = obj->ToUnit())
+            return !_caster->IsInRaidWith(target);
+
+        return true;
     }
 
-    void HandleEffectDummy(SpellEffIndex /*effIndex*/)
-    {
-        Position destPos = GetHitDest()->GetPosition();
-        float radius = GetEffectInfo().CalcRadius();
-
-        // Caster is prioritary
-        if (GetCaster()->IsWithinDist2d(&destPos, radius))
-        {
-            GetCaster()->CastSpell(GetCaster(), SPELL_PRIEST_MIND_SPIKE, true);
-        }
-        else
-        {
-            CastSpellExtraArgs args;
-            args.TriggerFlags = TRIGGERED_FULL_MASK;
-            args.CastDifficulty = GetCastDifficulty();
-            GetCaster()->CastSpell(destPos, SPELL_PRIEST_MIND_SPIKE, args);
-        }
-    }
-};
-
-
-
-
-struct Spell_pri_void_eruption : SpellScript
-{
-   // Spell_Pri_void_eruption()
+private:
+    Unit const* _caster;
 };
 
 // 121536 - Angelic Feather talent
@@ -439,17 +399,17 @@ public:
         float distanceLimit = GetEffectInfo(EFFECT_1).CalcValue();
 
         std::erase_if(_appliedAtonements, [priest, distanceLimit, &args](ObjectGuid const& targetGuid)
-        {
-            if (Unit* target = ObjectAccessor::GetUnit(*priest, targetGuid))
             {
-                if (target->IsInDist2d(priest, distanceLimit))
-                    priest->CastSpell(target, SPELL_PRIEST_ATONEMENT_HEAL, args);
+                if (Unit* target = ObjectAccessor::GetUnit(*priest, targetGuid))
+                {
+                    if (target->IsInDist2d(priest, distanceLimit))
+                        priest->CastSpell(target, SPELL_PRIEST_ATONEMENT_HEAL, args);
 
-                return false;
-            }
+                    return false;
+                }
 
-            return true;
-        });
+                return true;
+            });
     }
 
     void UpdateSinsOfTheManyValue() const
@@ -512,7 +472,7 @@ class spell_pri_atonement_triggered : public AuraScript
         RegisterHelper<&spell_pri_atonement::RemoveAtonementTarget>();
     }
 
-    template<void(spell_pri_atonement::*func)(ObjectGuid const&)>
+    template<void(spell_pri_atonement::* func)(ObjectGuid const&)>
     void RegisterHelper()
     {
         if (Unit* caster = GetCaster())
@@ -599,19 +559,19 @@ class spell_pri_divine_hymn : public SpellScript
 
 namespace DivineImageHelpers
 {
-Unit* GetSummon(Unit const* owner)
-{
-    for (Unit* summon : owner->m_Controlled)
-        if (summon->GetEntry() == NPC_PRIEST_DIVINE_IMAGE)
-            return summon;
-
-    return nullptr;
-}
-
-Optional<uint32> GetSpellToCast(uint32 spellId)
-{
-    switch (spellId)
+    Unit* GetSummon(Unit const* owner)
     {
+        for (Unit* summon : owner->m_Controlled)
+            if (summon->GetEntry() == NPC_PRIEST_DIVINE_IMAGE)
+                return summon;
+
+        return nullptr;
+    }
+
+    Optional<uint32> GetSpellToCast(uint32 spellId)
+    {
+        switch (spellId)
+        {
         case SPELL_PRIEST_RENEW:
             return SPELL_PRIEST_TRANQUIL_LIGHT;
         case SPELL_PRIEST_POWER_WORD_SHIELD:
@@ -644,27 +604,27 @@ Optional<uint32> GetSpellToCast(uint32 spellId)
             return SPELL_PRIEST_LIGHT_ERUPTION;
         default:
             break;
+        }
+
+        return {};
     }
 
-    return {};
-}
+    void Trigger(AuraEffect const* aurEff, ProcEventInfo const& eventInfo)
+    {
+        Unit* target = eventInfo.GetActor();
+        if (!target)
+            return;
 
-void Trigger(AuraEffect const* aurEff, ProcEventInfo const& eventInfo)
-{
-    Unit* target = eventInfo.GetActor();
-    if (!target)
-        return;
+        Unit* divineImage = GetSummon(target);
+        if (!divineImage)
+            return;
 
-    Unit* divineImage = GetSummon(target);
-    if (!divineImage)
-        return;
+        Optional<uint32> spellId = GetSpellToCast(eventInfo.GetSpellInfo()->Id);
+        if (!spellId)
+            return;
 
-    Optional<uint32> spellId = GetSpellToCast(eventInfo.GetSpellInfo()->Id);
-    if (!spellId)
-        return;
-
-    divineImage->CastSpell(SpellCastTargets(eventInfo.GetProcSpell()->m_targets), *spellId, aurEff);
-}
+        divineImage->CastSpell(SpellCastTargets(eventInfo.GetProcSpell()->m_targets), *spellId, aurEff);
+    }
 }
 
 // 392988 - Divine Image
@@ -677,7 +637,7 @@ class spell_pri_divine_image : public AuraScript
             SPELL_PRIEST_DIVINE_IMAGE_SUMMON,
             SPELL_PRIEST_DIVINE_IMAGE_EMPOWER,
             SPELL_PRIEST_DIVINE_IMAGE_EMPOWER_STACK
-        });
+            });
     }
 
     static void HandleProc(AuraEffect const* aurEff, ProcEventInfo const& eventInfo)
@@ -757,7 +717,7 @@ class spell_pri_divine_image_spell_triggered : public AuraScript
             SPELL_PRIEST_SEARING_LIGHT,
             SPELL_PRIEST_LIGHT_ERUPTION,
             SPELL_PRIEST_DIVINE_IMAGE_EMPOWER_STACK
-        });
+            });
     }
 
     static bool CheckProc(ProcEventInfo const& eventInfo)
@@ -785,9 +745,9 @@ class spell_pri_divine_image_stack_timer : public AuraScript
     void TrackStackApplicationTime(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/) const
     {
         GetUnitOwner()->m_Events.AddEventAtOffset([spelId = GetId(), owner = GetUnitOwner()]
-        {
-            owner->RemoveAuraFromStack(spelId);
-        }, Milliseconds(GetMaxDuration()));
+            {
+                owner->RemoveAuraFromStack(spelId);
+            }, Milliseconds(GetMaxDuration()));
     }
 
     void Register() override
@@ -927,24 +887,24 @@ struct areatrigger_pri_divine_star : AreaTriggerAI
     void ReturnToCaster()
     {
         _scheduler.Schedule(0ms, [this](TaskContext task)
-        {
-            Unit* caster = at->GetCaster();
-            if (!caster)
-                return;
+            {
+                Unit* caster = at->GetCaster();
+                if (!caster)
+                    return;
 
-            _casterCurrentPosition = caster->GetPosition();
+                _casterCurrentPosition = caster->GetPosition();
 
-            Movement::PointsArray returnSplinePoints;
+                Movement::PointsArray returnSplinePoints;
 
-            returnSplinePoints.push_back(PositionToVector3(at));
-            returnSplinePoints.push_back(PositionToVector3(at));
-            returnSplinePoints.push_back(PositionToVector3(caster));
-            returnSplinePoints.push_back(PositionToVector3(caster));
+                returnSplinePoints.push_back(PositionToVector3(at));
+                returnSplinePoints.push_back(PositionToVector3(at));
+                returnSplinePoints.push_back(PositionToVector3(caster));
+                returnSplinePoints.push_back(PositionToVector3(caster));
 
-            at->InitSplines(returnSplinePoints, uint32(at->GetDistance(caster) / _maxTravelDistance * 1000));
+                at->InitSplines(returnSplinePoints, uint32(at->GetDistance(caster) / _maxTravelDistance * 1000));
 
-            task.Repeat(250ms);
-        });
+                task.Repeat(250ms);
+            });
     }
 
 private:
@@ -1068,13 +1028,13 @@ class spell_pri_guardian_spirit : public AuraScript
         return true;
     }
 
-    void CalculateAmount(AuraEffect const* /*aurEff*/, int32 & amount, bool & /*canBeRecalculated*/)
+    void CalculateAmount(AuraEffect const* /*aurEff*/, int32& amount, bool& /*canBeRecalculated*/)
     {
         // Set absorbtion amount to unlimited
         amount = -1;
     }
 
-    void Absorb(AuraEffect* /*aurEff*/, DamageInfo & dmgInfo, uint32 & absorbAmount)
+    void Absorb(AuraEffect* /*aurEff*/, DamageInfo& dmgInfo, uint32& absorbAmount)
     {
         Unit* target = GetTarget();
         if (dmgInfo.GetDamage() < target->GetHealth())
@@ -1164,21 +1124,21 @@ class spell_pri_holy_words : public AuraScript
     bool Validate(SpellInfo const* /*spellInfo*/) override
     {
         return ValidateSpellInfo(
-        {
-            SPELL_PRIEST_HEAL,
-            SPELL_PRIEST_FLASH_HEAL,
-            SPELL_PRIEST_PRAYER_OF_HEALING,
-            SPELL_PRIEST_RENEW,
-            SPELL_PRIEST_SMITE,
-            SPELL_PRIEST_HOLY_WORD_CHASTISE,
-            SPELL_PRIEST_HOLY_WORD_SANCTIFY,
-            SPELL_PRIEST_HOLY_WORD_SERENITY
-        }) && ValidateSpellEffect(
-        {
-            { SPELL_PRIEST_HOLY_WORD_SERENITY, EFFECT_1 },
-            { SPELL_PRIEST_HOLY_WORD_SANCTIFY, EFFECT_3 },
-            { SPELL_PRIEST_HOLY_WORD_CHASTISE, EFFECT_1 }
-        });
+            {
+                SPELL_PRIEST_HEAL,
+                SPELL_PRIEST_FLASH_HEAL,
+                SPELL_PRIEST_PRAYER_OF_HEALING,
+                SPELL_PRIEST_RENEW,
+                SPELL_PRIEST_SMITE,
+                SPELL_PRIEST_HOLY_WORD_CHASTISE,
+                SPELL_PRIEST_HOLY_WORD_SANCTIFY,
+                SPELL_PRIEST_HOLY_WORD_SERENITY
+            }) && ValidateSpellEffect(
+                {
+                    { SPELL_PRIEST_HOLY_WORD_SERENITY, EFFECT_1 },
+                    { SPELL_PRIEST_HOLY_WORD_SANCTIFY, EFFECT_3 },
+                    { SPELL_PRIEST_HOLY_WORD_CHASTISE, EFFECT_1 }
+                });
     }
 
     void HandleProc(AuraEffect* /*aurEff*/, ProcEventInfo& eventInfo)
@@ -1191,27 +1151,27 @@ class spell_pri_holy_words : public AuraScript
         SpellEffIndex cdReductionEffIndex;
         switch (spellInfo->Id)
         {
-            case SPELL_PRIEST_HEAL:
-            case SPELL_PRIEST_FLASH_HEAL: // reduce Holy Word: Serenity cd by 6 seconds
-                targetSpellId = SPELL_PRIEST_HOLY_WORD_SERENITY;
-                cdReductionEffIndex = EFFECT_1;
-                // cdReduction = sSpellMgr->GetSpellInfo(SPELL_PRIEST_HOLY_WORD_SERENITY, GetCastDifficulty())->GetEffect(EFFECT_1)->CalcValue(player);
-                break;
-            case SPELL_PRIEST_PRAYER_OF_HEALING: // reduce Holy Word: Sanctify cd by 6 seconds
-                targetSpellId = SPELL_PRIEST_HOLY_WORD_SANCTIFY;
-                cdReductionEffIndex = EFFECT_2;
-                break;
-            case SPELL_PRIEST_RENEW: // reuce Holy Word: Sanctify cd by 2 seconds
-                targetSpellId = SPELL_PRIEST_HOLY_WORD_SANCTIFY;
-                cdReductionEffIndex = EFFECT_3;
-                break;
-            case SPELL_PRIEST_SMITE: // reduce Holy Word: Chastise cd by 4 seconds
-                targetSpellId = SPELL_PRIEST_HOLY_WORD_CHASTISE;
-                cdReductionEffIndex = EFFECT_1;
-                break;
-            default:
-                TC_LOG_WARN("spells.priest", "HolyWords aura has been proced by an unknown spell: {}", GetSpellInfo()->Id);
-                return;
+        case SPELL_PRIEST_HEAL:
+        case SPELL_PRIEST_FLASH_HEAL: // reduce Holy Word: Serenity cd by 6 seconds
+            targetSpellId = SPELL_PRIEST_HOLY_WORD_SERENITY;
+            cdReductionEffIndex = EFFECT_1;
+            // cdReduction = sSpellMgr->GetSpellInfo(SPELL_PRIEST_HOLY_WORD_SERENITY, GetCastDifficulty())->GetEffect(EFFECT_1)->CalcValue(player);
+            break;
+        case SPELL_PRIEST_PRAYER_OF_HEALING: // reduce Holy Word: Sanctify cd by 6 seconds
+            targetSpellId = SPELL_PRIEST_HOLY_WORD_SANCTIFY;
+            cdReductionEffIndex = EFFECT_2;
+            break;
+        case SPELL_PRIEST_RENEW: // reuce Holy Word: Sanctify cd by 2 seconds
+            targetSpellId = SPELL_PRIEST_HOLY_WORD_SANCTIFY;
+            cdReductionEffIndex = EFFECT_3;
+            break;
+        case SPELL_PRIEST_SMITE: // reduce Holy Word: Chastise cd by 4 seconds
+            targetSpellId = SPELL_PRIEST_HOLY_WORD_CHASTISE;
+            cdReductionEffIndex = EFFECT_1;
+            break;
+        default:
+            TC_LOG_WARN("spells.priest", "HolyWords aura has been proced by an unknown spell: {}", GetSpellInfo()->Id);
+            return;
         }
 
         SpellInfo const* targetSpellInfo = sSpellMgr->AssertSpellInfo(targetSpellId, GetCastDifficulty());
@@ -1323,7 +1283,7 @@ class spell_pri_painful_punishment : public AuraScript
         ({
             SPELL_PRIEST_SHADOW_WORD_PAIN,
             SPELL_PRIEST_PURGE_THE_WICKED_PERIODIC
-        });
+            });
     }
 
     void HandleEffectProc(AuraEffect* aurEff, ProcEventInfo& eventInfo)
@@ -1443,14 +1403,14 @@ class spell_pri_power_leech_passive : public AuraScript
             SPELL_PRIEST_ESSENCE_DEVOURER,
             SPELL_PRIEST_ESSENCE_DEVOURER_SHADOWFIEND_HEAL,
             SPELL_PRIEST_ESSENCE_DEVOURER_MINDBENDER_HEAL
-        })
+            })
             && ValidateSpellEffect
-        ({
-            { SPELL_PRIEST_POWER_LEECH_SHADOWFIEND_INSANITY, EFFECT_0 },
-            { SPELL_PRIEST_POWER_LEECH_SHADOWFIEND_MANA, EFFECT_0 },
-            { SPELL_PRIEST_POWER_LEECH_MINDBENDER_INSANITY, EFFECT_0 },
-            { SPELL_PRIEST_POWER_LEECH_MINDBENDER_MANA, EFFECT_0 }
-        });
+            ({
+                { SPELL_PRIEST_POWER_LEECH_SHADOWFIEND_INSANITY, EFFECT_0 },
+                { SPELL_PRIEST_POWER_LEECH_SHADOWFIEND_MANA, EFFECT_0 },
+                { SPELL_PRIEST_POWER_LEECH_MINDBENDER_INSANITY, EFFECT_0 },
+                { SPELL_PRIEST_POWER_LEECH_MINDBENDER_MANA, EFFECT_0 }
+                });
     }
 
     static bool CheckProc(ProcEventInfo const& eventInfo)
@@ -1591,13 +1551,13 @@ class spell_pri_power_word_radiance : public SpellScript
             // Sort targets so units with no atonement are first, then units who are injured, then oher units
             // Make sure explicit target unit is first
             targets.sort([this, explTarget](WorldObject* lhs, WorldObject* rhs)
-            {
-                if (lhs == explTarget) // explTarget > anything: always true
-                    return true;
-                if (rhs == explTarget) // anything > explTarget: always false
-                    return false;
-                return MakeSortTuple(lhs) > MakeSortTuple(rhs);
-            });
+                {
+                    if (lhs == explTarget) // explTarget > anything: always true
+                        return true;
+                    if (rhs == explTarget) // anything > explTarget: always false
+                        return false;
+                    return MakeSortTuple(lhs) > MakeSortTuple(rhs);
+                });
 
             targets.resize(maxTargets);
         }
@@ -1699,7 +1659,7 @@ class spell_pri_power_word_shield_aura : public AuraScript
             SPELL_PRIEST_SHIELD_DISCIPLINE_ENERGIZE,
             SPELL_PRIEST_RAPTURE,
             SPELL_PRIEST_MASTERY_GRACE
-        });
+            });
     }
 
     void CalculateAmount(AuraEffect const* /*auraEffect*/, int32& amount, bool& canBeRecalculated)
@@ -1779,7 +1739,7 @@ class spell_pri_power_word_solace : public SpellScript
     {
         GetCaster()->CastSpell(GetCaster(), SPELL_PRIEST_POWER_WORD_SOLACE_ENERGIZE,
             CastSpellExtraArgs(TRIGGERED_IGNORE_CAST_IN_PROGRESS).SetTriggeringSpell(GetSpell())
-                .AddSpellMod(SPELLVALUE_BASE_POINT0, GetEffectValue() / 100));
+            .AddSpellMod(SPELLVALUE_BASE_POINT0, GetEffectValue() / 100));
     }
 
     void Register() override
@@ -1839,7 +1799,7 @@ class spell_pri_prayer_of_mending_dummy : public spell_pri_prayer_of_mending_Spe
             SPELL_PRIEST_PRAYER_OF_MENDING_AURA,
             SPELL_PRIEST_EPIPHANY,
             SPELL_PRIEST_EPIPHANY_HIGHLIGHT
-        });
+            });
     }
 
     void HandleEffectDummy(SpellEffIndex /*effIndex*/) const
@@ -2077,7 +2037,7 @@ class spell_pri_purge_the_wicked : public SpellScript
         ({
             SPELL_PRIEST_PURGE_THE_WICKED_PERIODIC,
             SPELL_PRIEST_PURGE_THE_WICKED_DUMMY
-        });
+            });
     }
 
     void HandleDummy(SpellEffIndex /*effIndex*/)
@@ -2110,11 +2070,11 @@ class spell_pri_purge_the_wicked_dummy : public SpellScript
         Unit* explTarget = GetExplTargetUnit();
 
         targets.remove_if([&](WorldObject* object) -> bool
-        {
-            // Note: we must remove any non-unit target, the explicit target and any other target that may be under any crowd control aura.
-            Unit* target = object->ToUnit();
-            return !target || target == explTarget || target->HasBreakableByDamageCrowdControlAura();
-        });
+            {
+                // Note: we must remove any non-unit target, the explicit target and any other target that may be under any crowd control aura.
+                Unit* target = object->ToUnit();
+                return !target || target == explTarget || target->HasBreakableByDamageCrowdControlAura();
+            });
 
         if (targets.empty())
             return;
@@ -2124,24 +2084,24 @@ class spell_pri_purge_the_wicked_dummy : public SpellScript
 
         // Note: we must sort our list of targets whose priority is 1) aura, 2) distance, and 3) duration.
         targets.sort([&](WorldObject const* lhs, WorldObject const* rhs) -> bool
-        {
-            Unit const* targetA = lhs->ToUnit();
-            Unit const* targetB = rhs->ToUnit();
-
-            Aura* auraA = targetA->GetAura(SPELL_PRIEST_PURGE_THE_WICKED_PERIODIC, caster->GetGUID());
-            Aura* auraB = targetB->GetAura(SPELL_PRIEST_PURGE_THE_WICKED_PERIODIC, caster->GetGUID());
-
-            if (!auraA)
             {
-                if (auraB)
-                    return true;
-                return explTarget->GetExactDist(targetA) < explTarget->GetExactDist(targetB);
-            }
-            if (!auraB)
-                return false;
+                Unit const* targetA = lhs->ToUnit();
+                Unit const* targetB = rhs->ToUnit();
 
-            return auraA->GetDuration() < auraB->GetDuration();
-        });
+                Aura* auraA = targetA->GetAura(SPELL_PRIEST_PURGE_THE_WICKED_PERIODIC, caster->GetGUID());
+                Aura* auraB = targetB->GetAura(SPELL_PRIEST_PURGE_THE_WICKED_PERIODIC, caster->GetGUID());
+
+                if (!auraA)
+                {
+                    if (auraB)
+                        return true;
+                    return explTarget->GetExactDist(targetA) < explTarget->GetExactDist(targetB);
+                }
+                if (!auraB)
+                    return false;
+
+                return auraA->GetDuration() < auraB->GetDuration();
+            });
 
         // Note: Revel in Purity talent.
         if (caster->HasAura(SPELL_PRIEST_REVEL_IN_PURITY))
@@ -2260,7 +2220,7 @@ class spell_pri_shadow_mend : public SpellScript
             SPELL_PRIEST_MASOCHISM_TALENT,
             SPELL_PRIEST_MASOCHISM_PERIODIC_HEAL,
             SPELL_PRIEST_SHADOW_MEND_PERIODIC_DUMMY
-        });
+            });
     }
 
     void HandleEffectHit()
@@ -2654,6 +2614,4 @@ void AddSC_priest_spell_scripts()
     RegisterSpellScript(spell_pri_vampiric_embrace);
     RegisterSpellScript(spell_pri_vampiric_embrace_target);
     RegisterSpellScript(spell_pri_vampiric_touch);
-    RegisterSpellScript(Spell_pri_void_eruption);
-    RegisterSpellScript(spell_pri_mind_spike);
-};
+}
