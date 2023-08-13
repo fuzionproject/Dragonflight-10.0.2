@@ -168,10 +168,7 @@ enum PriestSpells
     SPELL_PRIEST_WEAKENED_SOUL                      = 6788
 };
 
-enum PreastData
-{
-    SPELL_PREAST_MINDSPIKE,
-};
+
 
 enum PriestSpellVisuals
 {
@@ -2657,9 +2654,6 @@ void AddSC_priest_spell_scripts()
     RegisterSpellScript(spell_pri_vampiric_embrace);
     RegisterSpellScript(spell_pri_vampiric_embrace_target);
     RegisterSpellScript(spell_pri_vampiric_touch);
-  //  RegisterSpellScript(areatrigger_pri_void_eruption);
     RegisterSpellScript(Spell_pri_void_eruption);
     RegisterSpellScript(spell_pri_mind_spike);
-    //RegisterSpellAndAuraScriptPair(spell_void_eruption, spell_void_eruption_aura);
-    //RegisterSpellAndAuraScriptPair(Spell_priest_mind_spike, spell_mindspike);
-}
+};

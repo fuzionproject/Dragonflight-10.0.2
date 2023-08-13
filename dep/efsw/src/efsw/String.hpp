@@ -6,8 +6,8 @@
 
 #ifndef EFSW_STRING_HPP
 #define EFSW_STRING_HPP
-
-#include <efsw/base.hpp>
+/*
+#include <efsw/base.hpp> */
 #include <locale>
 #include <string>
 #include <cstring>
@@ -16,6 +16,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include "base.hpp"
 
 namespace efsw {
 

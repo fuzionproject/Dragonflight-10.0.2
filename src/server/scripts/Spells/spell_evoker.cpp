@@ -47,9 +47,7 @@ enum EvokerSpells
     SPELL_EVOKER_SOAR_RACIAL               = 369536,
     SPELL_EVOKER_LANDSLIDE                 = 358385,
     SPELL_EVOKER_DEEP_BREATH               = 358385,
-    SPELL_EVOKER_LANDSLIDE_AREATRIGGER,
-    SPELL_EVOKER_DEEP_BREATH_AREATRIGGER,
-    SPELL_EVOKER_DEEP_BREATH_AURA,
+   
 };
 
 enum EvokerSpellLabels
@@ -62,7 +60,7 @@ class spell_evo_Deep_Breath_trigger : public SpellScript
 {
     bool Validate(SpellInfo const* /*spellInfo*/) override
     {
-        return ValidateSpellInfo({ SPELL_EVOKER_DEEP_BREATH_AREATRIGGER });
+        return ValidateSpellInfo({ SPELL_EVOKER_DEEP_BREATH });
     }
 
     void HandleEffectDummy(SpellEffIndex /*effIndex*/)
@@ -73,20 +71,20 @@ class spell_evo_Deep_Breath_trigger : public SpellScript
         // Caster is prioritary
         if (GetCaster()->IsWithinDist2d(&destPos, radius))
         {
-            GetCaster()->CastSpell(GetCaster(), SPELL_EVOKER_DEEP_BREATH_AURA, true);
+            GetCaster()->CastSpell(GetCaster(), SPELL_EVOKER_DEEP_BREATH, true);
         }
         else
         {
             CastSpellExtraArgs args;
             args.TriggerFlags = TRIGGERED_FULL_MASK;
             args.CastDifficulty = GetCastDifficulty();
-            GetCaster()->CastSpell(destPos, SPELL_EVOKER_DEEP_BREATH_AREATRIGGER, args);
+            GetCaster()->CastSpell(destPos, SPELL_EVOKER_DEEP_BREATH, args);
         }
     }
 
     void Register() override
     {
-       // OnEffectHit += SpellEffectFn(spell_evo_deep_breath_trigger::HandleEffectDummy, EFFECT_DUMMY, SPELL_EFFECT_DEEP_BREATH_TRIGGER, EFFECT_2, EFFECT_3, EFFECT_4, EFFECT_5);
+       // OnEffectHit += SpellEffectFn(spell_evo_deep_breath::HandleEffectDummy, EFFECT_DUMMY, SPELL_EFFECT_DEEP_BREATH, EFFECT_2, EFFECT_3, EFFECT_4, EFFECT_5);
     }
 };
 
@@ -117,7 +115,7 @@ struct Spell_evo_deep_breath : SpellScript
         }
     }
 
-    void Register() override;
+    void Register();// override;
 };
 
 //358385 spell_evo_landslide
@@ -152,37 +150,7 @@ class spell_evo_landslide : public SpellScript
        // OnEffectHit += SpellEffectFn(spell_mage_arcane_orb_trigger::HandleEffectDummy, EFFECT_DUMMY, SPELL_EFFECT_LANDSLIDE_TRIGGER);
     }
 };
-/*
-// spell_evo_landslide areatrigger - created by SPELL_EVOKER_LANDSLIDE_AREATRIGGER
-struct areatrigger_evoker_landslide : AreaTriggerAI
-{
-    areatrigger_evoker_landslide(AreaTrigger* areatrigger) : AreaTriggerAI(areatrigger) { }
 
-    // Called when the AreaTrigger has just been initialized, just before added to map
-    void OnInitialize() 
-    {
-        if (Unit* caster = at->GetCaster())
-        {
-            std::vector<AreaTrigger*> areaTriggers = caster->GetAreaTriggers(SPELL_EVOKER_LANDSLIDE_AREATRIGGER);
-
-            if (areaTriggers.size() >= 40)
-                areaTriggers.front()->SetDuration(1.5);
-        }
-    }
-
-    void OnUnitEnter(Unit* unit) 
-    {
-        if (Unit* caster = at->GetCaster())
-        {
-            if (caster->IsFriendlyTo(unit))
-            {
-                caster->CastSpell(unit, SPELL_EVOKER_LANDSLIDE, true);
-                at->SetDuration(1.5);
-            }
-        }
-    }
-};
-*/
 // 362969 - Azure Strike (blue)
 class spell_evo_azure_strike : public SpellScript
 {
@@ -347,7 +315,5 @@ void AddSC_evoker_spell_scripts()
     RegisterSpellScript(spell_evo_permeating_chill);
     RegisterSpellScript(spell_evo_pyre);
     RegisterSpellScript(spell_evo_landslide);
-   // RegisterSpellScript(areatrigger_evoker_landslide);
     RegisterSpellScript(Spell_evo_deep_breath);
-  //  RegisterSpellAndAuraScriptPair(spell_evo_deep_breath, spell_evo_deep_breath_AuraScript);
 }
