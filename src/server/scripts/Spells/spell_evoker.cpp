@@ -15,11 +15,11 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Scripts for spells with SPELLFAMILY_EVOKER and SPELLFAMILY_GENERIC spells used by evoker players.
- * Ordered alphabetically using scriptname.
- * Scriptnames of files in this file should be prefixed with "spell_evo_".
- */
+ /*
+  * Scripts for spells with SPELLFAMILY_EVOKER and SPELLFAMILY_GENERIC spells used by evoker players.
+  * Ordered alphabetically using scriptname.
+  * Scriptnames of files in this file should be prefixed with "spell_evo_".
+  */
 
 #include "Containers.h"
 #include "Player.h"
@@ -29,126 +29,23 @@
 #include "SpellHistory.h"
 #include "SpellMgr.h"
 #include "SpellScript.h"
-#include "../../../../dep/efsw/src/efsw/String.hpp"
-#include <boost/fusion/sequence/intrinsic_fwd.hpp>
-#include <boost/unordered/unordered_map.hpp>
-#include <boost/process/environment.hpp>
 
 enum EvokerSpells
 {
-    SPELL_EVOKER_ENERGIZING_FLAME          = 400006,
-    SPELL_EVOKER_GLIDE_KNOCKBACK           = 358736,
-    SPELL_EVOKER_HOVER                     = 358267,
-    SPELL_EVOKER_LIVING_FLAME              = 361469,
-    SPELL_EVOKER_LIVING_FLAME_DAMAGE       = 361500,
-    SPELL_EVOKER_LIVING_FLAME_HEAL         = 361509,
-    SPELL_EVOKER_PERMEATING_CHILL_TALENT   = 370897,
-    SPELL_EVOKER_PYRE_DAMAGE               = 357212,
-    SPELL_EVOKER_SOAR_RACIAL               = 369536,
-    SPELL_EVOKER_LANDSLIDE                 = 358385,
-    SPELL_EVOKER_DEEP_BREATH               = 358385,
-   
+    SPELL_EVOKER_ENERGIZING_FLAME = 400006,
+    SPELL_EVOKER_GLIDE_KNOCKBACK = 358736,
+    SPELL_EVOKER_HOVER = 358267,
+    SPELL_EVOKER_LIVING_FLAME = 361469,
+    SPELL_EVOKER_LIVING_FLAME_DAMAGE = 361500,
+    SPELL_EVOKER_LIVING_FLAME_HEAL = 361509,
+    SPELL_EVOKER_PERMEATING_CHILL_TALENT = 370897,
+    SPELL_EVOKER_PYRE_DAMAGE = 357212,
+    SPELL_EVOKER_SOAR_RACIAL = 369536
 };
 
 enum EvokerSpellLabels
 {
-    SPELL_LABEL_EVOKER_BLUE                 = 1465,
-};
-
-//358385 spell_evo_DEEP_BREATH
-class spell_evo_Deep_Breath_trigger : public SpellScript
-{
-    bool Validate(SpellInfo const* /*spellInfo*/) override
-    {
-        return ValidateSpellInfo({ SPELL_EVOKER_DEEP_BREATH });
-    }
-
-    void HandleEffectDummy(SpellEffIndex /*effIndex*/)
-    {
-        Position destPos = GetHitDest()->GetPosition();
-        float radius = GetEffectInfo().CalcRadius();
-
-        // Caster is prioritary
-        if (GetCaster()->IsWithinDist2d(&destPos, radius))
-        {
-            GetCaster()->CastSpell(GetCaster(), SPELL_EVOKER_DEEP_BREATH, true);
-        }
-        else
-        {
-            CastSpellExtraArgs args;
-            args.TriggerFlags = TRIGGERED_FULL_MASK;
-            args.CastDifficulty = GetCastDifficulty();
-            GetCaster()->CastSpell(destPos, SPELL_EVOKER_DEEP_BREATH, args);
-        }
-    }
-
-    void Register() override
-    {
-       // OnEffectHit += SpellEffectFn(spell_evo_deep_breath::HandleEffectDummy, EFFECT_DUMMY, SPELL_EFFECT_DEEP_BREATH, EFFECT_2, EFFECT_3, EFFECT_4, EFFECT_5);
-    }
-};
-
-// spell_evo_deep_breath  - created by SPELL_EVOKER_DEEP_BREATH
-struct Spell_evo_deep_breath : SpellScript
-{
-    bool Validate(SpellInfo const* /*spellInfo*/) override
-    {
-        return ValidateSpellInfo({ SPELL_EVOKER_DEEP_BREATH });
-    }
-
-    void HandleEffectDummy(SpellEffIndex /*effIndex*/)
-    {
-        Position destPos = GetHitDest()->GetPosition();
-        float radius = GetEffectInfo().CalcRadius();
-
-        // Caster is prioritary
-        if (GetCaster()->IsWithinDist2d(&destPos, radius))
-        {
-            GetCaster()->CastSpell(GetCaster(), SPELL_EVOKER_DEEP_BREATH, true);
-        }
-        else
-        {
-            CastSpellExtraArgs args;
-            args.TriggerFlags = TRIGGERED_FULL_MASK;
-            args.CastDifficulty = GetCastDifficulty();
-            GetCaster()->CastSpell(destPos, SPELL_EVOKER_DEEP_BREATH, args);
-        }
-    }
-
-    void Register();// override;
-};
-
-//358385 spell_evo_landslide
-class spell_evo_landslide : public SpellScript
-{
-    bool Validate(SpellInfo const* /*spellInfo*/) override
-    {
-        return ValidateSpellInfo({ SPELL_EVOKER_LANDSLIDE });
-    }
-
-    void HandleEffectDummy(SpellEffIndex /*effIndex*/)
-    {
-        Position destPos = GetHitDest()->GetPosition();
-        float radius = GetEffectInfo().CalcRadius();
-
-        // Caster is prioritary
-        if (GetCaster()->IsWithinDist2d(&destPos, radius))
-        {
-            GetCaster()->CastSpell(GetCaster(), SPELL_EVOKER_LANDSLIDE, true);
-        }
-        else
-        {
-            CastSpellExtraArgs args;
-            args.TriggerFlags = TRIGGERED_FULL_MASK;
-            args.CastDifficulty = GetCastDifficulty();
-            GetCaster()->CastSpell(destPos, SPELL_EVOKER_LANDSLIDE, args);
-        }
-    }
-
-    void Register() override
-    {
-       // OnEffectHit += SpellEffectFn(spell_mage_arcane_orb_trigger::HandleEffectDummy, EFFECT_DUMMY, SPELL_EFFECT_LANDSLIDE_TRIGGER);
-    }
+    SPELL_LABEL_EVOKER_BLUE = 1465,
 };
 
 // 362969 - Azure Strike (blue)
@@ -223,7 +120,7 @@ class spell_evo_living_flame : public SpellScript
 {
     bool Validate(SpellInfo const* /*spellInfo*/) override
     {
-        return ValidateSpellInfo ({ SPELL_EVOKER_LIVING_FLAME_DAMAGE, SPELL_EVOKER_LIVING_FLAME_HEAL, SPELL_EVOKER_ENERGIZING_FLAME });
+        return ValidateSpellInfo({ SPELL_EVOKER_LIVING_FLAME_DAMAGE, SPELL_EVOKER_LIVING_FLAME_HEAL, SPELL_EVOKER_ENERGIZING_FLAME });
     }
 
     void HandleHitTarget(SpellEffIndex /*effIndex*/)
@@ -292,7 +189,7 @@ class spell_evo_pyre : public SpellScript
 {
     bool Validate(SpellInfo const* /*spellInfo*/) override
     {
-        return ValidateSpellInfo ({ SPELL_EVOKER_PYRE_DAMAGE });
+        return ValidateSpellInfo({ SPELL_EVOKER_PYRE_DAMAGE });
     }
 
     void HandleDamage(SpellEffIndex /*effIndex*/)
@@ -314,6 +211,4 @@ void AddSC_evoker_spell_scripts()
     RegisterSpellScript(spell_evo_living_flame);
     RegisterSpellScript(spell_evo_permeating_chill);
     RegisterSpellScript(spell_evo_pyre);
-    RegisterSpellScript(spell_evo_landslide);
-    RegisterSpellScript(Spell_evo_deep_breath);
 }

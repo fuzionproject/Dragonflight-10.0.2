@@ -1,9 +1,8 @@
 #ifndef EFSW_BASE
 #define EFSW_BASE
-/*
+
 #include <efsw/sophist.h>
-#include <efsw/efsw.hpp>*/
-#include "sophist.h"
+#include <efsw/efsw.hpp>
 
 namespace efsw {
 
